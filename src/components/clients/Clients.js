@@ -4,24 +4,23 @@ import PropTypes from "prop-types";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
-import Spinner from './../layout/Spinner'
+import Spinner from "./../layout/Spinner";
 
 class Clients extends Component {
   state = {
-    totalOwed:null
-  }
+    totalOwed: null
+  };
 
-  static getDerivedStateFromProps(props, state){
+  static getDerivedStateFromProps(props, state) {
     const { clients } = props;
 
-    if(clients){
+    if (clients) {
       // Add clients balance
       const total = clients.reduce((total, client) => {
         return total + parseFloat(client.balance.toString());
-      }, 0)
+      }, 0);
       //console.log(total);
-      return {totalOwed: total}
-      
+      return { totalOwed: total };
     }
 
     return null;
@@ -42,9 +41,11 @@ class Clients extends Component {
             </div>
             <div className="col-md-6">
               <h5 className="text-right text-secondary">
-                Total Owed{' '}
-                <span className="text-primary">${parseFloat(totalOwed).toFixed(2)}</span>
-                </h5>
+                Total Owed{" "}
+                <span className="text-primary">
+                  ${parseFloat(totalOwed).toFixed(2)}
+                </span>
+              </h5>
             </div>
           </div>
 
@@ -67,7 +68,7 @@ class Clients extends Component {
                   <td>${parseFloat(client.balance).toFixed(2)}</td>
                   <td>
                     <Link
-                      to={`./clinet/${client.id}`}
+                      to={`./client/${client.id}`}
                       className="btn btn-secondary btn-sm"
                     >
                       <i className="fas fa-arrow-circle-right" /> Details
@@ -80,7 +81,7 @@ class Clients extends Component {
         </div>
       );
     } else {
-      return <Spinner/>;
+      return <Spinner />;
     }
   }
 }
